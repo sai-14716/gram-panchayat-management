@@ -1,0 +1,365 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Dashboard - {{ panchayat.panchayatname }}</title>
+    <link href="{% static 'css/citizens.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section - Citizen Profile -->
+        <section class="header-section">
+            <div class="citizen-profile">
+                <div class="profile-photo">
+                    <!-- If no photo available, show initials -->
+                    <div class="initials">{{ citizen.fullname|slice:":1" }}</div>
+                </div>
+                <div class="profile-details">
+                    <div class="profile-info">
+                        <h1>{{ citizen.fullname }}</h1>
+                        <div class="info-card">
+                            <div class="info-item">
+                                <div class="info-label">Citizen ID</div>
+                                <div class="info-value">{{ citizen.citizenid }}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Date of Birth</div>
+                                <div class="info-value">{{ citizen.dateofbirth }}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Gender</div>
+                                <div class="info-value">{{ citizen.gender }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">Contact Number</div>
+                            <div class="meta-value">{{ citizen.contactnumber }}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Father ID</div>
+                            <div class="meta-value">{{ citizen.fatherid }}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Mother ID</div>
+                            <div class="meta-value">{{ citizen.motherid }}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Education Level</div>
+                            <div class="meta-value">{{ citizen.educationlevel }}</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">Household ID</div>
+                            <div class="meta-value">{{ citizen.householdid }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Middle Section - Panchayat Data -->
+        <section class="middle-section">
+            <div class="panchayat-header">
+                <h2 class="panchayat-name">{{ panchayat.panchayatname }}</h2>
+                <div class="panchayat-badge">Citizen Portal</div>
+            </div>
+
+            <!-- Assets Section -->
+            <div class="data-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <span class="material-icons">business</span>
+                    </div>
+                    <h3 class="section-title">Panchayat Assets</h3>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Asset Type</th>
+                            <th>Location</th>
+                            <th>Condition</th>
+                            <th>Last Maintenance</th>
+                            <th>Installation Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for asset in assets %}
+                        <tr>
+                            <td>{{ asset.assettype }}</td>
+                            <td>{{ asset.location }}</td>
+                            <td>
+                                {% if asset.condition == 'Good' %}
+                                <span class="status-badge status-good">Good</span>
+                                {% elif asset.condition == 'Average' %}
+                                <span class="status-badge status-average">Average</span>
+                                {% else %}
+                                <span class="status-badge status-bad">Needs Repair</span>
+                                {% endif %}
+                            </td>
+                            <td class="date-highlight">{{ asset.lastmaintaianencedate }}</td>
+                            <td>{{ asset.installationdate }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button class="expand-btn">
+                    View All Assets
+                    <span class="material-icons expand-icon">expand_more</span>
+                </button>
+            </div>
+
+            <!-- Citizens Section -->
+            <div class="data-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <span class="material-icons">people</span>
+                    </div>
+                    <h3 class="section-title">Citizens in Panchayat</h3>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Citizen ID</th>
+                            <th>Full Name</th>
+                            <th>Household ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for citizen in citizens_in_panchayat %}
+                        <tr>
+                            <td>{{ citizen.citizenid }}</td>
+                            <td>{{ citizen.fullname }}</td>
+                            <td>{{ citizen.householdid }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button class="expand-btn">
+                    View All Citizens
+                    <span class="material-icons expand-icon">expand_more</span>
+                </button>
+            </div>
+
+            <!-- Cultivation Section -->
+            <div class="data-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <span class="material-icons">agriculture</span>
+                    </div>
+                    <h3 class="section-title">Cultivation Data</h3>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Crop</th>
+                            <th>Season</th>
+                            <th>Total Cultivated Area</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cultivation in cultivation %}
+                        <tr>
+                            <td>{{ cultivation.year }}</td>
+                            <td>{{ cultivation.crop }}</td>
+                            <td>{{ cultivation.season }}</td>
+                            <td>{{ cultivation.total_cultivated_area }} acres</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button class="expand-btn">
+                    View All Cultivation Data
+                    <span class="material-icons expand-icon">expand_more</span>
+                </button>
+            </div>
+
+            <!-- Welfare Schemes Section -->
+            <div class="data-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <span class="material-icons">volunteer_activism</span>
+                    </div>
+                    <h3 class="section-title">Welfare Schemes</h3>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Program ID</th>
+                            <th>Program Name</th>
+                            <th>Description</th>
+                            <th>Eligibility</th>
+                            <th>Benefits</th>
+                            <th>Start Date</th>
+                            <th>Expiry Date</th>
+                            <th>Department</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for scheme in welfareschemes %}
+                        <tr>
+                            <td>{{ scheme.programid }}</td>
+                            <td>{{ scheme.programname }}</td>
+                            <td>{{ scheme.description }}</td>
+                            <td>{{ scheme.eligibilitycriteria }}</td>
+                            <td>{{ scheme.benefits }}</td>
+                            <td>{{ scheme.startdate }}</td>
+                            <td>{{ scheme.expirydate }}</td>
+                            <td>{{ scheme.managingdepartment }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button class="expand-btn">
+                    View All Welfare Schemes
+                    <span class="material-icons expand-icon">expand_more</span>
+                </button>
+            </div>
+
+            <!-- Vaccination Records Section -->
+            <div class="data-section">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <span class="material-icons">health_and_safety</span>
+                    </div>
+                    <h3 class="section-title">Vaccination Records</h3>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Citizen ID</th>
+                            <th>Vaccine Name</th>
+                            <th>Date</th>
+                            <th>Dose Number</th>
+                            <th>Health Worker</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in vaccinationrecords %}
+                        <tr>
+                            <td>{{ record.citizenid }}</td>
+                            <td>{{ record.vaccinename }}</td>
+                            <td>{{ record.date }}</td>
+                            <td>{{ record.dosenumber }}</td>
+                            <td>{{ record.healthworker }}</td>
+                            <td>{{ record.location }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button class="expand-btn">
+                    View All Vaccination Records
+                    <span class="material-icons expand-icon">expand_more</span>
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <section class="service-request-section">
+        <div class="data-section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <span class="material-icons">support_agent</span>
+                </div>
+                <h3 class="section-title">Submit Service Request</h3>
+            </div>
+            <div class="form-container">
+                <form action="{% url 'login:service_request' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="citizenid" value="{{ citizen.citizenid }}">
+                    
+                    <div class="form-group">
+                        <label for="request_type">Request Type</label>
+                        <select id="request_type" name="request_type" required>
+                            <option value="">Select a request type</option>
+                            <option value="certificate">Certificate Request</option>
+                            <option value="infrastructure">Infrastructure Issue</option>
+                            <option value="scheme">Welfare Scheme Application</option>
+                            <option value="complaint">File a Complaint</option>
+                            <option value="other">Other Service</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="Brief subject of your request" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" rows="4" placeholder="Provide details about your request" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">Location (if applicable)</label>
+                        <input type="text" id="location" name="location" placeholder="Relevant location">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="priority">Priority</label>
+                        <select id="priority" name="priority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                            <option value="urgent">Urgent</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="attachment">Attachment (if any)</label>
+                        <input type="file" id="attachment" name="attachment">
+                        <span class="file-info">Maximum file size: 5MB</span>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="reset" class="reset-btn">Reset</button>
+                        <button type="submit" class="submit-btn">Submit Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>  
+
+    <script>
+        // JavaScript for expand buttons
+        document.querySelectorAll('.expand-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const dataTable = this.previousElementSibling;
+                const rows = dataTable.querySelectorAll('tbody tr');
+                
+                // Toggle between showing more/less rows
+                if (this.getAttribute('data-expanded') === 'true') {
+                    // Hide rows beyond 5
+                    for (let i = 5; i < rows.length; i++) {
+                        rows[i].style.display = 'none';
+                    }
+                    this.innerHTML = 'View All <span class="material-icons expand-icon">expand_more</span>';
+                    this.setAttribute('data-expanded', 'false');
+                } else {
+                    // Show all rows
+                    rows.forEach(row => row.style.display = '');
+                    this.innerHTML = 'Show Less <span class="material-icons expand-icon">expand_less</span>';
+                    this.setAttribute('data-expanded', 'true');
+                }
+            });
+            
+            // Initialize - hide rows beyond 5
+            const rows = button.previousElementSibling.querySelectorAll('tbody tr');
+            if (rows.length > 5) {
+                for (let i = 5; i < rows.length; i++) {
+                    rows[i].style.display = 'none';
+                }
+                button.setAttribute('data-expanded', 'false');
+            } else {
+                button.style.display = 'none'; // Hide button if 5 or fewer rows
+            }
+        });
+    </script>
+</body>
+</html>

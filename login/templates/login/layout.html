@@ -1,0 +1,133 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gram Panchayat</title>
+    <link rel="stylesheet" href="{% static 'css/layout.css'%}">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="site-name">Gram Panchayat</div>
+        <button class="sign-in-btn" id="signInBtn">Sign In</button>
+    </header>
+
+    <!-- Login Options Overlay -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-options">
+            <h2>Select Login Type</h2>
+            <form id="loginForm" action="{% url 'login:display_page'%}" method="post">
+                {% csrf_token %}
+                <input type="hidden" id="userType" name="userType" value="">
+                <div class="login-buttons">
+                    <button type="button" class="login-btn" data-type="admin">Admin</button>
+                    <button type="button" class="login-btn" data-type="citizen">Citizens</button>
+                    <button type="button" class="login-btn" data-type="government">Government Agency</button>
+                    <button type="button" class="login-btn" data-type="employee">Employees</button>
+                </div>
+                <button type="button" class="close-btn" id="closeOverlay">Close</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+        <img src="{% static 'mahatma_gandhi.jpeg' %}" alt="Mahatma Gandhi" class="quote-img">
+        <div class="quote-content">
+            <p class="quote-text">"The future depends on what we do in the present. Be the change you wish to see in the village."</p>
+            <p class="quote-author">- Mahatma Gandhi</p>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section">
+        <h2 class="section-title">Latest News & Updates</h2>
+        <div class="news-container" id="newsContainer">
+            <!-- News items will be dynamically loaded -->
+        </div>
+    </section>
+
+    <script>
+        // Handle Sign In Button Click
+        document.getElementById('signInBtn').addEventListener('click', function() {
+            document.getElementById('loginOverlay').classList.add('active');
+        });
+
+        // Handle Close Button Click
+        document.getElementById('closeOverlay').addEventListener('click', function() {
+            document.getElementById('loginOverlay').classList.remove('active');
+        });
+
+        // Handle Login Button Clicks
+        const loginButtons = document.querySelectorAll('.login-btn');
+        const loginForm = document.getElementById('loginForm');
+        const userTypeInput = document.getElementById('userType');
+
+        loginButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const userType = this.getAttribute('data-type');
+                userTypeInput.value = userType;
+                loginForm.submit();
+            });
+        });
+
+        // Close overlay when clicking outside the login options
+        document.getElementById('loginOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+
+        // Sample news data
+        const newsData = [
+            {
+                title: 'New Water Conservation Project',
+                date: 'March 1, 2025',
+                image: "{% static 'literacy.jpeg' %}",
+                description: 'Our gram panchayat is launching a new water conservation project to help farmers during the summer season.'
+            },
+            {
+                title: 'Digital Literacy Campaign',
+                date: 'February 25, 2025',
+                image: "{% static 'road.jpeg' %}",
+                description: 'Free digital literacy classes will be conducted for all village residents starting next week.'
+            },
+            {
+                title: 'Road Improvement Work',
+                date: 'February 20, 2025',
+                image: "{% static 'water.jpeg' %}",
+                description: 'The main road connecting our village to the highway will undergo repairs and improvements.'
+            },
+            {
+                title: 'Health Camp Announcement',
+                date: 'February 15, 2025',
+                image: "{% static 'medical.jpeg' %}",
+                description: 'A free health checkup camp will be organized in collaboration with the district hospital.'
+            }
+        ];
+
+        // Dynamically load news items
+        const newsContainer = document.getElementById('newsContainer');
+        
+        newsData.forEach(news => {
+            const newsCard = document.createElement('div');
+            newsCard.className = 'news-card';
+            
+            newsCard.innerHTML = `
+                <img src="${news.image}" alt="${news.title}" class="news-img">
+                <div class="news-content">
+                    <p class="news-date">${news.date}</p>
+                    <h3 class="news-title">${news.title}</h3>
+                    <p class="news-desc">${news.description}</p>
+                    <a href="#" class="read-more">Read More</a>
+                </div>
+            `;
+            
+            newsContainer.appendChild(newsCard);
+        });
+    </script>
+</body>
+</html>

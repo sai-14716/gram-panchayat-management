@@ -1,0 +1,255 @@
+/* styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f5f8fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Greeting Section */
+.greeting-section {
+    text-align: center;
+    padding: 50px 20px;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.greeting-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#typed {
+    font-size: 32px;
+    color: #fff;
+    font-weight: 600;
+    line-height: 1.4;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Login Section */
+.login-section {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+    margin-bottom: 30px;
+}
+
+.login-container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.login-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6e8efb;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px 15px 15px 45px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: #6e8efb;
+    box-shadow: 0 0 0 2px rgba(110, 142, 251, 0.2);
+    outline: none;
+}
+
+.form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 14px;
+}
+
+.remember-forgot label {
+    display: flex;
+    align-items: center;
+    color: #666;
+}
+
+.remember-forgot input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.forgot-link {
+    color: #6e8efb;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.forgot-link:hover {
+    color: #a777e3;
+    text-decoration: underline;
+}
+
+.signin-btn, .google-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.signin-btn {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.signin-btn:hover {
+    background: linear-gradient(135deg, #5a7df9, #9866e0);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.divider {
+    text-align: center;
+    position: relative;
+    margin: 20px 0;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background-color: #ddd;
+}
+
+.divider::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background-color: #ddd;
+}
+
+.divider span {
+    background-color: #fff;
+    padding: 0 10px;
+    position: relative;
+    z-index: 1;
+    color: #666;
+}
+
+.google-btn {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.google-btn i {
+    color: #DB4437;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.google-btn:hover {
+    background-color: #f8f8f8;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Text Section */
+.text-section {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    padding: 30px;
+}
+
+.quote-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.quote-icon {
+    font-size: 30px;
+    color: #6e8efb;
+    margin: 10px;
+    opacity: 0.7;
+}
+
+.quote-text {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #555;
+    font-style: italic;
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    #typed {
+        font-size: 24px;
+    }
+    
+    .login-section,
+    .text-section {
+        padding: 20px;
+    }
+    
+    .remember-forgot {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

@@ -1,0 +1,75 @@
+{% load static %}
+
+<!-- display_page.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Page</title>
+    <link rel="stylesheet" href="{% static 'css/display.css' %}">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Typed.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Greeting Section -->
+        <section class="greeting-section">
+            <div class="greeting-container">
+                <div id="typed-strings">
+                    <p>Welcome, {{ data }} <br> Hope you are having a good day</p>
+                </div>
+                <span id="typed"></span>
+            </div>
+        </section>
+
+        <!-- Login Details Section -->
+        <section class="login-section">
+            <div class="login-container">
+                <h2>Account Login</h2>
+                <form id="loginForm" action="{% url 'login:authenticate' person %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <label for="username"></label>
+                        <input type="text" id="username" placeholder="Username" name="username" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <label for="password"></label>
+                        <input type="password" id="password" placeholder="Password" name="password" required>
+                    </div>
+                    <div class="form-footer">
+                        <div class="remember-forgot">
+                            <label>
+                                <input type="checkbox"> Remember me
+                            </label>
+                            <a href="#" class="forgot-link">Forgot Password?</a>
+                        </div>
+                    </div>
+                    <button type="submit" class="signin-btn">Sign In</button>
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+                    <button type="button" class="google-btn">
+                        <i class="fab fa-google"></i> Sign in with Google
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Text Section -->
+        <section class="text-section">
+            <div class="quote-container">
+                <i class="fas fa-quote-left quote-icon"></i>
+                <p class="quote-text">{{ text }}</p>
+                <i class="fas fa-quote-right quote-icon"></i>
+            </div>
+        </section>
+    </div>
+
+    <script src="{% static 'js/display.js' %}"></script>
+</body>
+</html>
